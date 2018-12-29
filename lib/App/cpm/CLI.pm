@@ -12,7 +12,7 @@ use App::cpm::Requirement;
 use App::cpm::Resolver::Cascade;
 use App::cpm::Resolver::MetaCPAN;
 use App::cpm::Resolver::MetaDB;
-use App::cpm::Util qw(WIN32 determine_home maybe_abs);
+use App::cpm::Util qw(WIN32 determine_home maybe_abs get_ncpu);
 use App::cpm::Worker;
 use App::cpm::version;
 use App::cpm;
@@ -31,7 +31,8 @@ sub new {
     bless {
         home => determine_home,
         cwd => Cwd::cwd(),
-        workers => WIN32 ? 1 : 5,
+        # We default to at least blast all cores, probably should be CPU+1 to have a download worker too
+        workers => WIN32 ? 1 : List::Util::min(5, get_ncpu()),
         snapshot => "cpanfile.snapshot",
         cpanfile => "cpanfile",
         local_lib => "local",

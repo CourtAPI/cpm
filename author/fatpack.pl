@@ -54,7 +54,7 @@ sub git_info {
     chomp $describe;
     my $hash = `git rev-parse --short HEAD`;
     chomp $hash;
-    my $url = "https://github.com/skaji/cpm/tree/$hash";
+    my $url = "https://github.com/CourtAPI/cpm/tree/$hash";
     ($describe, $url);
 }
 
@@ -99,7 +99,7 @@ my $target = '5.10.1';
 my ($git_describe, $git_url);
 if (my $version = $ENV{CPAN_RELEASE_VERSION}) {
     $git_describe = $version;
-    $git_url = "https://github.com/skaji/cpm/tree/$version";
+    $git_url = "https://github.com/CourtAPI/cpm/tree/$version";
 } else {
     ($git_describe, $git_url) = git_info;
 }
