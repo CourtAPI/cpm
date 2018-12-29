@@ -32,7 +32,7 @@ sub new {
         home => determine_home,
         cwd => Cwd::cwd(),
         # We default to at least blast all cores, probably should be CPU+1 to have a download worker too
-        workers => WIN32 ? 1 : List::Util::min(5, get_ncpu()),
+        workers => WIN32 ? 1 : List::Util::max(5, get_ncpu()),
         snapshot => "cpanfile.snapshot",
         cpanfile => "cpanfile",
         local_lib => "local",
